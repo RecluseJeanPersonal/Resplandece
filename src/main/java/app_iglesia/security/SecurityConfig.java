@@ -67,7 +67,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200")); // Frontend (puedes agregar más orígenes según lo necesites)
+        config.setAllowedOrigins(List.of("https://resplandece.onrender.com"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos HTTP permitidos
         config.setAllowedHeaders(List.of("*")); // Permite todos los encabezados
         config.setAllowCredentials(true); // Permite credenciales (como cookies y encabezados de autorización)
