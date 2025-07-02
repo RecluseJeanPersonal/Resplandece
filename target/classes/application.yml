@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/Resplandece
-    username: postgres
-    password: Clannad
+    url: jdbc:postgresql://dpg-d1i8hire5dus739eqhi0-a.oregon-postgres.render.com:5432/resplandecebd
+    username: resplandecebd_user
+    password: 3rimAcmfPV2xxM5aI0ylFWwiDYWp4HPY
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
