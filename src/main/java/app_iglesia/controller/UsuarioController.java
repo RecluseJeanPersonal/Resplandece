@@ -2,9 +2,9 @@ package app_iglesia.controller;
 
 import app_iglesia.entity.Usuario;
 import app_iglesia.payload.request.CrearUsuarioRequest;
-import app_iglesia.payload.request.UsuarioEncargadoRequest;
+import app_iglesia.payload.request.UsuarioSearchRequest;
 import app_iglesia.payload.response.UsuarioListarResponse;
-import app_iglesia.service.UsuarioService;
+import app_iglesia.service.usuario.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +27,9 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuario creado correctamente");
     }
 
-    @GetMapping("getAll")
-    public ResponseEntity<List<UsuarioListarResponse>> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarUsuarios());
+    @PostMapping("getAll")
+    public ResponseEntity<List<UsuarioListarResponse>> buscarUsuarios(@RequestBody UsuarioSearchRequest request) {
+        return ResponseEntity.ok(usuarioService.buscarUsuarios(request));
     }
 
     @GetMapping("/{id}")

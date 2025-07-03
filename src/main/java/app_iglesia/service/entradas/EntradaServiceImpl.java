@@ -1,12 +1,9 @@
-package app_iglesia.service;
+package app_iglesia.service.entradas;
 
 import app_iglesia.entity.Entrada;
 import app_iglesia.entity.Taller;
 import app_iglesia.entity.Usuario;
-import app_iglesia.payload.request.ActualizarEstadoMasivoRequest;
-import app_iglesia.payload.request.EntradaRequest;
-import app_iglesia.payload.request.GuardarEntradaRequest;
-import app_iglesia.payload.request.TallerRequest;
+import app_iglesia.payload.request.*;
 import app_iglesia.payload.response.EntradasResponse;
 import app_iglesia.payload.response.TallerResponse;
 import app_iglesia.repository.Entrada.EntradaRepository;
@@ -142,26 +139,10 @@ public class EntradaServiceImpl implements EntradaService {
     }
 
     @Override
-    public List<EntradasResponse> listarTodasEntradas() {
-        List<Entrada> entradas = entradaRepository.findAll();
-        return entradas.stream().map(entrada -> {
-            List<TallerResponse> talleresDTO = entrada.getTalleres().stream()
-                    .map(t -> new TallerResponse(t.getId(), t.getNombre(), t.getDescripcion(), t.getBloque(),
-                            t.getInicio(), t.getFin(), t.getAnio()))
-                    .collect(Collectors.toList());
-
-            return new EntradasResponse(
-                    entrada.getId(),
-                    entrada.getNombre(),
-                    entrada.getApellido(),
-                    entrada.getFechanac(),
-                    entrada.getEdad(),
-                    entrada.getTelefono(),
-                    entrada.getEstado(),
-                    talleresDTO
-            );
-        }).collect(Collectors.toList());
+    public List<EntradasResponse> buscarEntradasPorFiltros(EntradaSearchRequest filtro) {
+        return entradaRepository.buscarPorFiltros(filtro); // se accede desde entradaRepository
     }
+
 
     @Override
     public String validarEntradaPorQr(UUID codigoQr) {

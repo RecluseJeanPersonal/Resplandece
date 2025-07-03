@@ -3,9 +3,10 @@ package app_iglesia.controller;
 import app_iglesia.entity.Entrada;
 import app_iglesia.payload.request.ActualizarEstadoMasivoRequest;
 import app_iglesia.payload.request.EntradaRequest;
+import app_iglesia.payload.request.EntradaSearchRequest;
 import app_iglesia.payload.request.GuardarEntradaRequest;
 import app_iglesia.payload.response.EntradasResponse;
-import app_iglesia.service.EntradaService;
+import app_iglesia.service.entradas.EntradaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,11 +56,10 @@ public class EntradaController {
         return ResponseEntity.ok(entradas);
     }
 
-    @GetMapping("/listar/todas")
-    public ResponseEntity<List<EntradasResponse>> listarTodas() {
-        List<EntradasResponse> entradas = entradaService.listarTodasEntradas();
-        return ResponseEntity.ok(entradas);
-
+    @PostMapping("/listar/todas")
+    public ResponseEntity<List<EntradasResponse>> buscarEntradas(@RequestBody EntradaSearchRequest filtro) {
+        List<EntradasResponse> resultados = entradaService.buscarEntradasPorFiltros(filtro);
+        return ResponseEntity.ok(resultados);
     }
 
     @PostMapping("/validar-qr")

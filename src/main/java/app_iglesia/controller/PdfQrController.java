@@ -1,7 +1,6 @@
 package app_iglesia.controller;
 
-import app_iglesia.entity.Entrada;
-import app_iglesia.service.EntradaService;
+import app_iglesia.service.entradas.EntradaService;
 import app_iglesia.service.reportes.PdfQrService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

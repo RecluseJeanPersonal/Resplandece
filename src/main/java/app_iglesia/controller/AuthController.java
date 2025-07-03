@@ -1,14 +1,13 @@
 package app_iglesia.controller;
 
 import app_iglesia.constant.ControllerConstant;
-import app_iglesia.entity.Usuario;
 import app_iglesia.payload.request.LoginRequest;
 import app_iglesia.payload.request.UsuarioEncargadoRequest;
 import app_iglesia.payload.response.JwtResponse;
 import app_iglesia.security.jwt.JwtProvider;
 import app_iglesia.security.payload.JwtTimesResponse;
 import app_iglesia.security.service.UserDetailsImpl;
-import app_iglesia.service.UsuarioService;
+import app_iglesia.service.usuario.UsuarioService;
 import app_iglesia.util.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

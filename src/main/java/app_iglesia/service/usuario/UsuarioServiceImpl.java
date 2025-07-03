@@ -1,11 +1,11 @@
-package app_iglesia.service;
+package app_iglesia.service.usuario;
 
 import app_iglesia.entity.Rol;
 import app_iglesia.entity.Usuario;
 import app_iglesia.payload.request.CrearUsuarioRequest;
 import app_iglesia.payload.request.UsuarioEncargadoRequest;
+import app_iglesia.payload.request.UsuarioSearchRequest;
 import app_iglesia.payload.response.UsuarioListarResponse;
-import app_iglesia.payload.response.UsuarioResponse;
 import app_iglesia.repository.rol.RolRepository;
 import app_iglesia.repository.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -61,22 +59,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<UsuarioListarResponse> listarUsuarios() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-
-        return usuarios.stream()
-                .map(usuario -> new UsuarioListarResponse(
-                        usuario.getId(),
-                        usuario.getUsername(),
-                        usuario.getNombre(),
-                        usuario.getApellido(),
-                        usuario.getTelefono(),
-                        usuario.getHabilitado(),
-                        usuario.getRoles().stream()
-                                .map(Rol::getDescripcion) // <- Puedes usar getDescripcion o getValue
-                                .collect(Collectors.toSet())
-                ))
-                .collect(Collectors.toList());
+    public List<UsuarioListarResponse> buscarUsuarios(UsuarioSearchRequest request) {
+        return usuarioRepository.buscarUsuarios(request);
     }
 
     @Override

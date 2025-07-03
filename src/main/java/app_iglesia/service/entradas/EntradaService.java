@@ -1,8 +1,9 @@
-package app_iglesia.service;
+package app_iglesia.service.entradas;
 
 import app_iglesia.entity.Entrada;
 import app_iglesia.payload.request.ActualizarEstadoMasivoRequest;
 import app_iglesia.payload.request.EntradaRequest;
+import app_iglesia.payload.request.EntradaSearchRequest;
 import app_iglesia.payload.request.GuardarEntradaRequest;
 import app_iglesia.payload.response.EntradasResponse;
 
@@ -18,7 +19,8 @@ public interface EntradaService {
     void actualizarEstadoMasivo(ActualizarEstadoMasivoRequest request);
 
     List<EntradaRequest> listarEntradasPorUsuario(UUID idUsuario);
-    List<EntradasResponse> listarTodasEntradas();
     Optional<Entrada> buscarPorId(UUID idEntrada);
     String validarEntradaPorQr(UUID codigoQr);
+    List<EntradasResponse> buscarEntradasPorFiltros(EntradaSearchRequest filtro);
+
 }
