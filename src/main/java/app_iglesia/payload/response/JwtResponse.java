@@ -7,16 +7,14 @@ import java.util.UUID;
 public class JwtResponse {
     private String token;
     private String username;
-    private String nombre;
     private List<String> roles;  // Lista de roles
     private String emissionTime;
     private String expirationTime;
-    private UUID idUsuario;
+    private UUID idUsuario; // 👈 nuevo campo
 
-    public JwtResponse(String token, String username, String nombre, List<String> roles, String emissionTime, String expirationTime, UUID idUsuario) {
+    public JwtResponse(String token, String username, List<String> roles, String emissionTime, String expirationTime, UUID idUsuario) {
         this.token = token;
         this.username = username;
-        this.nombre = nombre;
         this.roles = roles;
         this.emissionTime = emissionTime;
         this.expirationTime = expirationTime;
@@ -37,14 +35,6 @@ public class JwtResponse {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public List<String> getRoles() {

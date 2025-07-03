@@ -59,11 +59,10 @@ public class AuthController {
             // Generar el JWT token
             String token = jwtProvider.generateJWT(authentication);
 
-            // Obtener el usuario autenticado y sus datos
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal(); // ✅ solo una vez
+            // Obtener el nombre de usuario
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             String username = userDetails.getUsername();
             UUID idusuario = userDetails.getId();
-            String nombre = userDetails.getNombre(); // ✅ nombre
 
             // Obtener los roles desde las autoridades
             List<String> roles = authentication.getAuthorities().stream()
@@ -73,18 +72,19 @@ public class AuthController {
             // Obtener los tiempos de emisión y expiración del token
             JwtTimesResponse fechas = jwtProvider.getTimesFromJWT(token);
 
-            // Crear y devolver la respuesta
+            // Crear la respuesta con el token, nombre de usuario, roles y tiempos
             return ResponseEntity.ok(new JwtResponse(
                     token,
                     username,
-                    nombre, // 👈 se agrega nombre aquí
                     roles,
                     fechas.getEmision(),
                     fechas.getExpiracion(),
                     idusuario
             ));
-
-        } catch (Exception e) {
+        }  catch (Exception e) {
+            System.out.println("******************");
+            System.out.println(e.getMessage());
+            // Puedes revisar el tipo de excepción para ser más específico si deseas
             if (e.getMessage() != null && e.getMessage().toLowerCase().contains("bad credentials")) {
                 throw new Exceptions(controllerConstant.CREDENCIALES_INVALIDAS);
             } else {
@@ -92,5 +92,4 @@ public class AuthController {
             }
         }
     }
-
 }
