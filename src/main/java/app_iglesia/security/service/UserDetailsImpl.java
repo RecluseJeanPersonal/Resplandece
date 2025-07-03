@@ -20,6 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     private UUID id;
     private String username;
     private String password;
+    private String nombre;
 
     @JsonIgnore
     private Boolean habilitado;
@@ -31,10 +32,11 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl() {
     }
 
-    public UserDetailsImpl(UUID id, String username, String password, Boolean habilitado, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(UUID id, String username, String password, String nombre, Boolean habilitado, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.nombre = nombre;
         this.habilitado = habilitado;
         this.authorities = authorities;
     }
@@ -52,6 +54,7 @@ public class UserDetailsImpl implements UserDetails {
                 usuario.getId(),
                 usuario.getUsername(),
                 usuario.getPassword(),
+                usuario.getNombre(),
                 usuario.getHabilitado(),
                 authorities
         );
