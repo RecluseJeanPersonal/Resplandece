@@ -133,6 +133,44 @@ public class EntradaServiceImpl implements EntradaService {
             return dto;
         }).toList();
     }
+
+    @Override
+    public List<EntradaRequest> buscarEntradasPorUsuarioYFiltros(UUID idUsuario, EntradaSearchRequest filtro) {
+        List<Entrada> entradas = entradaRepository.buscarPorUsuarioYFiltros(idUsuario, filtro);
+
+        return entradas.stream().map(entrada -> {
+            EntradaRequest dto = new EntradaRequest();
+            dto.setId(entrada.getId());
+            dto.setNombre(entrada.getNombre());
+            dto.setApellido(entrada.getApellido());
+            dto.setFechanac(entrada.getFechanac());
+            dto.setEdad(entrada.getEdad());
+            dto.setTelefono(entrada.getTelefono());
+            dto.setEstado(entrada.getEstado());
+            dto.setFechaRegistro(entrada.getFechaRegistro());
+
+            dto.setCodigoQR(!"Pendiente".equalsIgnoreCase(entrada.getEstado()) ? entrada.getCodigoQR() : null);
+
+            dto.setTalleres(
+                    entrada.getTalleres().stream().map(taller -> {
+                        TallerRequest t = new TallerRequest();
+                        t.setId(taller.getId());
+                        t.setNombre(taller.getNombre());
+                        t.setDescripcion(taller.getDescripcion());
+                        t.setHabilitado(taller.getHabilitado());
+                        t.setBloque(taller.getBloque());
+                        t.setInicio(taller.getInicio());
+                        t.setFin(taller.getFin());
+                        t.setAnio(taller.getAnio());
+                        return t;
+                    }).toList()
+            );
+
+            return dto;
+        }).toList();
+    }
+
+
     @Override
     public Optional<Entrada> buscarPorId(UUID idEntrada) {
         return entradaRepository.findById(idEntrada);
@@ -142,7 +180,6 @@ public class EntradaServiceImpl implements EntradaService {
     public List<EntradasResponse> buscarEntradasPorFiltros(EntradaSearchRequest filtro) {
         return entradaRepository.buscarPorFiltros(filtro); // se accede desde entradaRepository
     }
-
 
     @Override
     public String validarEntradaPorQr(UUID codigoQr) {
@@ -166,6 +203,18 @@ public class EntradaServiceImpl implements EntradaService {
             default:
                 return "Estado de entrada inválido";
         }
+    }
+
+    @Override
+    public void eliminarEntradaPorId(UUID idEntrada) {
+        Entrada entrada = entradaRepository.findById(idEntrada)
+                .orElseThrow(() -> new EntityNotFoundException("Entrada no encontrada con ID: " + idEntrada));
+        entradaRepository.delete(entrada);
+    }
+
+    @Override
+    public void eliminarTodasLasEntradas() {
+        entradaRepository.deleteAll();
     }
 
 }

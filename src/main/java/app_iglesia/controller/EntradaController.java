@@ -56,6 +56,15 @@ public class EntradaController {
         return ResponseEntity.ok(entradas);
     }
 
+    @PostMapping("/listar/filtro/{idUsuario}")
+    public ResponseEntity<List<EntradaRequest>> buscarEntradasPorUsuarioConFiltros(
+            @PathVariable UUID idUsuario,
+            @RequestBody EntradaSearchRequest filtro) {
+
+        List<EntradaRequest> entradas = entradaService.buscarEntradasPorUsuarioYFiltros(idUsuario, filtro);
+        return ResponseEntity.ok(entradas);
+    }
+
     @PostMapping("/listar/todas")
     public ResponseEntity<List<EntradasResponse>> buscarEntradas(@RequestBody EntradaSearchRequest filtro) {
         List<EntradasResponse> resultados = entradaService.buscarEntradasPorFiltros(filtro);
@@ -71,6 +80,20 @@ public class EntradaController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Código QR inválido");
         }
+    }
+
+    // Eliminar una entrada específica
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<Void> eliminarEntradaPorId(@PathVariable UUID id) {
+        entradaService.eliminarEntradaPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Eliminar todas las entradas
+    @DeleteMapping("/eliminar/todas")
+    public ResponseEntity<Void> eliminarTodasLasEntradas() {
+        entradaService.eliminarTodasLasEntradas();
+        return ResponseEntity.noContent().build();
     }
 
 }

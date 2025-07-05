@@ -22,5 +22,8 @@ public interface EntradaService {
     Optional<Entrada> buscarPorId(UUID idEntrada);
     String validarEntradaPorQr(UUID codigoQr);
     List<EntradasResponse> buscarEntradasPorFiltros(EntradaSearchRequest filtro);
+    void eliminarEntradaPorId(UUID idEntrada);
+    void eliminarTodasLasEntradas();
+    List<EntradaRequest> buscarEntradasPorUsuarioYFiltros(UUID idUsuario, EntradaSearchRequest filtro);
 
 }

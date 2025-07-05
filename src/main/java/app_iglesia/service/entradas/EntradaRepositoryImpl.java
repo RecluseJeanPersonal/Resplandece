@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
@@ -59,4 +60,30 @@ public class EntradaRepositoryImpl implements EntradaRepositoryCustom {
             );
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Entrada> buscarPorUsuarioYFiltros(UUID idUsuario, EntradaSearchRequest filtro) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Entrada> cq = cb.createQuery(Entrada.class);
+        Root<Entrada> entrada = cq.from(Entrada.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        // Filtrar por ID de usuario
+        predicates.add(cb.equal(entrada.get("usuario").get("id"), idUsuario));
+
+        // Filtrar por nombre si está presente
+        if (filtro.getNombre() != null && !filtro.getNombre().trim().isEmpty()) {
+            predicates.add(cb.like(cb.lower(entrada.get("nombre")), "%" + filtro.getNombre().toLowerCase() + "%"));
+        }
+
+        // Filtrar por apellido si está presente
+        if (filtro.getApellido() != null && !filtro.getApellido().trim().isEmpty()) {
+            predicates.add(cb.like(cb.lower(entrada.get("apellido")), "%" + filtro.getApellido().toLowerCase() + "%"));
+        }
+
+        cq.where(cb.and(predicates.toArray(new Predicate[0])));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
 }
