@@ -2,6 +2,7 @@ package app_iglesia.service.usuario;
 
 import app_iglesia.entity.Rol;
 import app_iglesia.entity.Usuario;
+import app_iglesia.payload.request.CambiarRolRequest;
 import app_iglesia.payload.request.CrearUsuarioRequest;
 import app_iglesia.payload.request.UsuarioEncargadoRequest;
 import app_iglesia.payload.request.UsuarioSearchRequest;
@@ -15,9 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -90,4 +89,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    @Override
+    public void cambiarRolUsuario(CambiarRolRequest  request) {
+        Usuario usuario = usuarioRepository.findById(request.getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Rol nuevoRol = rolRepository.findById(request.getIdRol())
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+
+        Set<Rol> roles = new HashSet<>();
+        roles.add(nuevoRol); // reemplaza los roles anteriores
+
+        usuario.setRoles(roles);
+
+        usuarioRepository.save(usuario);
+    }
 }

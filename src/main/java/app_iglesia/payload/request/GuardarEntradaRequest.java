@@ -14,5 +14,6 @@ public class GuardarEntradaRequest {
     private String telefono;
     private String estado;
     private String fechanac;
+    private String tipo;
     private List<UUID> talleresIds;
 }

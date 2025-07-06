@@ -40,6 +40,7 @@ public class EntradaServiceImpl implements EntradaService {
         entrada.setEdad(request.getEdad());
         entrada.setTelefono(request.getTelefono());
         entrada.setEstado(request.getEstado());
+        entrada.setTipo(request.getTipo());
         entrada.setTalleres(talleres);
         entrada.setCodigoQR(UUID.randomUUID());
         entrada.setUsuario(usuario);
@@ -62,9 +63,10 @@ public class EntradaServiceImpl implements EntradaService {
             entrada.setNombre(req.getNombre());
             entrada.setApellido(req.getApellido());
             entrada.setEdad(req.getEdad());
-            entrada.setFechanac(req.getFechanac()); // ← AQUI SE AGREGA
+            entrada.setFechanac(req.getFechanac());
             entrada.setTelefono(req.getTelefono());
             entrada.setEstado(req.getEstado());
+            entrada.setTipo(req.getTipo());
             entrada.setTalleres(talleres);
             entrada.setCodigoQR(UUID.randomUUID());
             entrada.setUsuario(usuario);

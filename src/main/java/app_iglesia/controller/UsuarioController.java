@@ -1,6 +1,7 @@
 package app_iglesia.controller;
 
 import app_iglesia.entity.Usuario;
+import app_iglesia.payload.request.CambiarRolRequest;
 import app_iglesia.payload.request.CrearUsuarioRequest;
 import app_iglesia.payload.request.UsuarioSearchRequest;
 import app_iglesia.payload.response.UsuarioListarResponse;
@@ -39,6 +40,12 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/cambiar-rol")
+    public ResponseEntity<?> cambiarRol(@RequestBody CambiarRolRequest request) {
+        usuarioService.cambiarRolUsuario(request);
+        return ResponseEntity.ok("Rol actualizado correctamente.");
     }
 
 }

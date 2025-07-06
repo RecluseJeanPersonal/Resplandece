@@ -1,6 +1,7 @@
 package app_iglesia.service.usuario;
 
 import app_iglesia.entity.Usuario;
+import app_iglesia.payload.request.CambiarRolRequest;
 import app_iglesia.payload.request.CrearUsuarioRequest;
 import app_iglesia.payload.request.UsuarioEncargadoRequest;
 import app_iglesia.payload.request.UsuarioSearchRequest;
@@ -14,5 +15,6 @@ public interface UsuarioService {
     Usuario obtenerPorId(UUID id);
     Usuario registrarUsuario(UsuarioEncargadoRequest dto);
     List<UsuarioListarResponse> buscarUsuarios(UsuarioSearchRequest request);
+    void cambiarRolUsuario(CambiarRolRequest request);
 
 }
