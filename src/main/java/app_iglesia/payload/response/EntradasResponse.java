@@ -1,5 +1,6 @@
 package app_iglesia.payload.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,10 +12,13 @@ public class EntradasResponse {
     private Integer edad;
     private String telefono;
     private String estado;
+    private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaRegistroActualizada;
+    private String tipo;
     private List<TallerResponse> talleres;  // lista de talleres simplificada
 
     public EntradasResponse(UUID id, String nombre, String apellido, String fechanac, Integer edad,
-                      String telefono, String estado, List<TallerResponse> talleres) {
+                      String telefono, String estado, String tipo, LocalDateTime fechaRegistro, LocalDateTime fechaRegistroActualizada, List<TallerResponse> talleres) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -22,6 +26,9 @@ public class EntradasResponse {
         this.edad = edad;
         this.telefono = telefono;
         this.estado = estado;
+        this.tipo = tipo;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaRegistroActualizada = fechaRegistroActualizada;
         this.talleres = talleres;
     }
 
@@ -79,6 +86,30 @@ public class EntradasResponse {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public LocalDateTime getFechaRegistroActualizada() {
+        return fechaRegistroActualizada;
+    }
+
+    public void setFechaRegistroActualizada(LocalDateTime fechaRegistroActualizada) {
+        this.fechaRegistroActualizada = fechaRegistroActualizada;
     }
 
     public List<TallerResponse> getTalleres() {

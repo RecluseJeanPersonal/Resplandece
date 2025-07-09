@@ -12,8 +12,10 @@ public class EntradaRequest {
     private Integer edad;
     private String telefono;
     private String estado;
+    private String tipo;
     private UUID codigoQR;
     private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaRegistroActualizada;
     private List<TallerRequest> talleres;
 
     public UUID getId() {
@@ -72,6 +74,14 @@ public class EntradaRequest {
         this.estado = estado;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public UUID getCodigoQR() {
         return codigoQR;
     }
@@ -86,6 +96,14 @@ public class EntradaRequest {
 
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public LocalDateTime getFechaRegistroActualizada() {
+        return fechaRegistroActualizada;
+    }
+
+    public void setFechaRegistroActualizada(LocalDateTime fechaRegistroActualizada) {
+        this.fechaRegistroActualizada = fechaRegistroActualizada;
     }
 
     public List<TallerRequest> getTalleres() {

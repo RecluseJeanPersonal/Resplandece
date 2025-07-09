@@ -56,6 +56,9 @@ public class EntradaRepositoryImpl implements EntradaRepositoryCustom {
                     entrada.getEdad(),
                     entrada.getTelefono(),
                     entrada.getEstado(),
+                    entrada.getTipo(),
+                    entrada.getFechaRegistro(),
+                    entrada.getFechaRegistroActualizada(),
                     talleresDTO
             );
         }).collect(Collectors.toList());

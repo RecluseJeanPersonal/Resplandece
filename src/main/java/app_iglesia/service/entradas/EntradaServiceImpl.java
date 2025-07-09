@@ -93,6 +93,7 @@ public class EntradaServiceImpl implements EntradaService {
         List<Entrada> entradas = entradaRepository.findAllById(request.getIdsEntradas());
         for (Entrada entrada : entradas) {
             entrada.setEstado("Registrado");
+            entrada.setFechaRegistroActualizada(LocalDateTime.now());
         }
 
         entradaRepository.saveAll(entradas);
@@ -111,7 +112,9 @@ public class EntradaServiceImpl implements EntradaService {
             dto.setEdad(entrada.getEdad());
             dto.setTelefono(entrada.getTelefono());
             dto.setEstado(entrada.getEstado());
+            dto.setTipo(entrada.getTipo());
             dto.setFechaRegistro(entrada.getFechaRegistro());
+            dto.setFechaRegistroActualizada(entrada.getFechaRegistroActualizada());
 
             dto.setCodigoQR(!"Pendiente".equalsIgnoreCase(entrada.getEstado())
                     ? entrada.getCodigoQR()
@@ -149,7 +152,9 @@ public class EntradaServiceImpl implements EntradaService {
             dto.setEdad(entrada.getEdad());
             dto.setTelefono(entrada.getTelefono());
             dto.setEstado(entrada.getEstado());
+            dto.setTipo(entrada.getTipo());
             dto.setFechaRegistro(entrada.getFechaRegistro());
+            dto.setFechaRegistroActualizada(entrada.getFechaRegistroActualizada());
 
             dto.setCodigoQR(!"Pendiente".equalsIgnoreCase(entrada.getEstado()) ? entrada.getCodigoQR() : null);
 

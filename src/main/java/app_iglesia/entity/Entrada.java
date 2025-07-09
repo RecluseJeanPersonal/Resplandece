@@ -60,4 +60,7 @@ public class Entrada {
 
     @Column(name = "dt_registro")
     private LocalDateTime fechaRegistro;
+
+    @Column(name = "dt_registro_update")
+    private LocalDateTime fechaRegistroActualizada;
 }
