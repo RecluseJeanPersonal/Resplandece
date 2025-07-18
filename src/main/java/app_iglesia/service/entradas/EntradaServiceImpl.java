@@ -4,6 +4,7 @@ import app_iglesia.entity.Entrada;
 import app_iglesia.entity.Taller;
 import app_iglesia.entity.Usuario;
 import app_iglesia.payload.request.*;
+import app_iglesia.payload.response.EntradaQrResponse;
 import app_iglesia.payload.response.EntradasResponse;
 import app_iglesia.payload.response.TallerResponse;
 import app_iglesia.repository.Entrada.EntradaRepository;
@@ -41,6 +42,7 @@ public class EntradaServiceImpl implements EntradaService {
         entrada.setTelefono(request.getTelefono());
         entrada.setEstado(request.getEstado());
         entrada.setTipo(request.getTipo());
+        entrada.setTipoentrada(request.getTipoentrada());
         entrada.setTalleres(talleres);
         entrada.setCodigoQR(UUID.randomUUID());
         entrada.setUsuario(usuario);
@@ -67,6 +69,7 @@ public class EntradaServiceImpl implements EntradaService {
             entrada.setTelefono(req.getTelefono());
             entrada.setEstado(req.getEstado());
             entrada.setTipo(req.getTipo());
+            entrada.setTipoentrada(req.getTipoentrada());
             entrada.setTalleres(talleres);
             entrada.setCodigoQR(UUID.randomUUID());
             entrada.setUsuario(usuario);
@@ -189,27 +192,39 @@ public class EntradaServiceImpl implements EntradaService {
     }
 
     @Override
-    public String validarEntradaPorQr(UUID codigoQr) {
+    public EntradaQrResponse validarEntradaPorQr(UUID codigoQr) {
         Optional<Entrada> entradaOpt = entradaRepository.findByCodigoQR(codigoQr);
 
         if (entradaOpt.isEmpty()) {
-            return "Entrada no existe";
+            throw new EntityNotFoundException("Entrada no existe");
         }
 
         Entrada entrada = entradaOpt.get();
 
-        switch (entrada.getEstado()) {
-            case "Registrado":
-                entrada.setEstado("Validado");
-                entradaRepository.save(entrada);
-                return "Entrada aceptada";
-
-            case "Validado":
-                return "Entrada ya usada";
-
-            default:
-                return "Estado de entrada inválido";
+        String validarEstado = entrada.getEstado();
+        String validaTipoEntrada = entrada.getTipoentrada();
+        if ("Registrado".equals(entrada.getEstado())) {
+            entrada.setEstado("Validado");
+            entrada.setFechaRegistroActualizada(LocalDateTime.now());
+            entradaRepository.save(entrada);
         }
+
+        if (validaTipoEntrada == null || validaTipoEntrada.isBlank()) {
+            validaTipoEntrada = "Kit de Regalo";
+        }
+
+        // Mapear a DTO
+        EntradaQrResponse dto = new EntradaQrResponse();
+        dto.setId(entrada.getId());
+        dto.setNombre(entrada.getNombre());
+        dto.setApellido(entrada.getApellido());
+        dto.setTelefono(entrada.getTelefono());
+        dto.setEstado(validarEstado);
+        dto.setTipo(entrada.getTipo());
+        dto.setTipoentrada(validaTipoEntrada);
+        dto.setCodigoQR(entrada.getCodigoQR());
+
+        return dto;
     }
 
     @Override

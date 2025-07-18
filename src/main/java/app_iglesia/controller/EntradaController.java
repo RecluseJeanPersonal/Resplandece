@@ -5,9 +5,12 @@ import app_iglesia.payload.request.ActualizarEstadoMasivoRequest;
 import app_iglesia.payload.request.EntradaRequest;
 import app_iglesia.payload.request.EntradaSearchRequest;
 import app_iglesia.payload.request.GuardarEntradaRequest;
+import app_iglesia.payload.response.EntradaQrResponse;
 import app_iglesia.payload.response.EntradasResponse;
 import app_iglesia.service.entradas.EntradaService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,13 +75,17 @@ public class EntradaController {
     }
 
     @PostMapping("/validar-qr")
-    public ResponseEntity<String> validarQr(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> validarQr(@RequestBody Map<String, String> body) {
         try {
             UUID codigoQr = UUID.fromString(body.get("codigoQr"));
-            String mensaje = entradaService.validarEntradaPorQr(codigoQr);
-            return ResponseEntity.ok(mensaje);
-        } catch (Exception e) {
+            EntradaQrResponse dto = entradaService.validarEntradaPorQr(codigoQr);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entrada no existe");
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Código QR inválido");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inesperado");
         }
     }
 

@@ -41,6 +41,9 @@ public class Entrada {
     @Column(name = "tx_tipo")
     private String tipo;
 
+    @Column(name = "tx_tipoentrada")
+    private String tipoentrada;
+
     @ManyToMany
     @JoinTable(
             name = "entrada_taller",

@@ -5,6 +5,7 @@ import app_iglesia.payload.request.ActualizarEstadoMasivoRequest;
 import app_iglesia.payload.request.EntradaRequest;
 import app_iglesia.payload.request.EntradaSearchRequest;
 import app_iglesia.payload.request.GuardarEntradaRequest;
+import app_iglesia.payload.response.EntradaQrResponse;
 import app_iglesia.payload.response.EntradasResponse;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public interface EntradaService {
 
     List<EntradaRequest> listarEntradasPorUsuario(UUID idUsuario);
     Optional<Entrada> buscarPorId(UUID idEntrada);
-    String validarEntradaPorQr(UUID codigoQr);
+    EntradaQrResponse validarEntradaPorQr(UUID codigoQr);
+
     List<EntradasResponse> buscarEntradasPorFiltros(EntradaSearchRequest filtro);
     void eliminarEntradaPorId(UUID idEntrada);
     void eliminarTodasLasEntradas();
