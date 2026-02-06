@@ -1,12 +1,17 @@
+#server:
+#port: 8080
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dpg-d633r394tr6s73b43png-a.oregon-postgres.render.com:5432/registro_entradas
-    username: resplandecebd_user
-    password: 2U3Pfx8ThYd5CGhK7matPK3E2GLJCJea
+    #url: jdbc:postgresql://dpg-d633r394tr6s73b43png-a.oregon-postgres.render.com:5432/registro_entradas
+    #username: resplandecebd_user
+    #password: 2U3Pfx8ThYd5CGhK7matPK3E2GLJCJea
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     #url: jdbc:postgresql://localhost/Resplandece
     #username: postgres
     #password: Clannad
