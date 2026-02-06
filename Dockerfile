@@ -1,6 +1,6 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
-# Instala librerías necesarias para Java AWT headless (para generación de Excel con estilos y fuentes)
+# Instala librerías necesarias para Java AWT headless (PDF / QR / fuentes)
 RUN apt-get update && apt-get install -y \
     libfreetype6 \
     fonts-dejavu \
