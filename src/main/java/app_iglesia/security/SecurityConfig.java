@@ -69,7 +69,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:4200",
-                "https://resplance2025.web.app/"
+                "https://resplance2025.web.app/",
+                "https://aromademujer-8b144.web.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos HTTP permitidos
         config.setAllowedHeaders(List.of("*")); // Permite todos los encabezados
