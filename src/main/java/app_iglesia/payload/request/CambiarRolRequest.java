@@ -8,6 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CambiarRolRequest {
+
     private UUID idUsuario;
     private UUID idRol;
 }

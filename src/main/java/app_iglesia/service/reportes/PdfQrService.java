@@ -54,10 +54,10 @@ public class PdfQrService {
         document.open();
 
         // Leer el PDF base como plantilla
-        PdfReader plantilla = new PdfReader(new FileInputStream("src/main/resources/Entrada.pdf"));
+        PdfReader plantilla = new PdfReader(new FileInputStream("src/main/resources/EntradaAroma.pdf"));
         Rectangle pageSize = plantilla.getPageSize(1);
 
-        int qrSize = 145;
+        int qrSize = 520;
 
         for (PdfQrRequest item : codigosYnombres) {
             document.setPageSize(pageSize);
@@ -90,7 +90,7 @@ public class PdfQrService {
             float franjaTop = pageHeight * 0.75f;
             float franjaBottom = pageHeight * 0.5f;
             float franjaHeight = franjaTop - franjaBottom;
-            float qrY = franjaBottom + (franjaHeight - qrSize) / 2 + 10;
+            float qrY = franjaBottom + (franjaHeight - qrSize) / 2 - 175;
 
             qrItextImage.setAbsolutePosition(qrX, qrY);
             qrItextImage.scaleAbsolute(qrSize, qrSize);
