@@ -1,15 +1,20 @@
+#server:
+#port: 8080
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dpg-d633r394tr6s73b43png-a.oregon-postgres.render.com:5432/registro_entradas
-    username: resplandecebd_user
-    password: 2U3Pfx8ThYd5CGhK7matPK3E2GLJCJea
-    #url: jdbc:postgresql://localhost/Resplandece
-    #username: postgres
-    #password: Clannad
+    #url: jdbc:postgresql://dpg-d633r394tr6s73b43png-a.oregon-postgres.render.com:5432/registro_entradas
+    #username: resplandecebd_user
+    #password: 2U3Pfx8ThYd5CGhK7matPK3E2GLJCJea
+    #url: ${DB_URL}
+    #username: ${DB_USER}
+    #password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost/Resplandece
+    username: postgres
+    password: Clannad
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
@@ -17,7 +22,7 @@ spring:
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         order_inserts: true
