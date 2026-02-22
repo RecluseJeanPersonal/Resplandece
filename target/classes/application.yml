@@ -9,12 +9,12 @@ spring:
     #url: jdbc:postgresql://dpg-d633r394tr6s73b43png-a.oregon-postgres.render.com:5432/registro_entradas
     #username: resplandecebd_user
     #password: 2U3Pfx8ThYd5CGhK7matPK3E2GLJCJea
-    #url: ${DB_URL}
-    #username: ${DB_USER}
-    #password: ${DB_PASSWORD}
-    url: jdbc:postgresql://localhost/Resplandece
-    username: postgres
-    password: Clannad
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    #url: jdbc:postgresql://localhost/Resplandece
+    #username: postgres
+    #password: Clannad
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2

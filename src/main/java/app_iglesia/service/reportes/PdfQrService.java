@@ -57,7 +57,7 @@ public class PdfQrService {
         PdfReader plantilla = new PdfReader(new FileInputStream("src/main/resources/EntradaAroma.pdf"));
         Rectangle pageSize = plantilla.getPageSize(1);
 
-        int qrSize = 520;
+        int qrSize = 100;
 
         for (PdfQrRequest item : codigosYnombres) {
             document.setPageSize(pageSize);
@@ -71,10 +71,17 @@ public class PdfQrService {
             // Generar QR
             BitMatrix bitMatrix = new MultiFormatWriter().encode(
                     item.getCodigoQr().toString(), BarcodeFormat.QR_CODE, qrSize, qrSize);
-            BufferedImage qrImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_RGB);
+            BufferedImage qrImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_ARGB);
+
             for (int x = 0; x < qrSize; x++) {
                 for (int y = 0; y < qrSize; y++) {
-                    qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0x000000 : 0xFFFFFF);
+                    if (bitMatrix.get(x, y)) {
+                        // Negro sólido
+                        qrImage.setRGB(x, y, 0xFF000000);
+                    } else {
+                        // Transparente
+                        qrImage.setRGB(x, y, 0x00000000);
+                    }
                 }
             }
 
@@ -90,7 +97,7 @@ public class PdfQrService {
             float franjaTop = pageHeight * 0.75f;
             float franjaBottom = pageHeight * 0.5f;
             float franjaHeight = franjaTop - franjaBottom;
-            float qrY = franjaBottom + (franjaHeight - qrSize) / 2 - 175;
+            float qrY = franjaBottom + (franjaHeight - qrSize) / 2 - 22;
 
             qrItextImage.setAbsolutePosition(qrX, qrY);
             qrItextImage.scaleAbsolute(qrSize, qrSize);
